@@ -2,7 +2,7 @@
 
 #### Popeye's Pizza is a simple and efficient online ordering system for a pizza restaurant. It allows users to browse the menu, place orders, and seamlessly complete transactions using Razorpay payment integration.
 
-- **Hosted Link:** [Link for Payment Integration](https://popeyes-pizza.onrender.com)
+[**Hosted Link**](https://popeyes-pizza.onrender.com)
 
 
 ## Features
