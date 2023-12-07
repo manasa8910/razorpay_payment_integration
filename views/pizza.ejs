@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Popeye's Pizza</title>
+    <link rel="stylesheet" href="../public/styles/pizza.css" type="text/css" />
+    <script defer src="../public/scripts/pizzaData.js"></script>
+    <script defer src="../public/scripts/pizza.js"></script>
+  </head>
+  <body>
+    <div id="welcomeContainer">
+      <div>Welcome to Popeye's Pizza</div>
+      <script
+        src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
+        type="module"
+      ></script>
+
+      <dotlottie-player
+        id="lottieAnimation"
+        src="https://lottie.host/d6d42a98-fe69-4e53-bdc6-729ceac5bfd1/O7op291PaS.json"
+        background="transparent"
+        speed="1"
+        style="width: 610px; height: 610px"
+        loop
+        autoplay
+      ></dotlottie-player>
+    </div>
+    <div id="nextPage">
+      <div id="cartDisplay">
+        <div><span id="displayCartTotal"></span></div>
+        <a onclick="storeCartData()" href="./checkout"
+          ><div>View Cart</div>
+          <div class="arrow">></div>
+        </a>
+      </div>
+      <div class="container">
+        <div id="menuContainer"></div>
+      </div>
+    </div>
+  </body>
+</html>

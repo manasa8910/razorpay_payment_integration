@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Popeye's Pizza</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="message">
+        <h1>Your order has been succesfully placed</h1>
+        <div class="relax">
+          Sit and relax while your order is being prepared
+        </div>
+        <div class="order">
+          <div id="eta">ETA: 15 mins</div>
+          <div id="orderId">Order ID: 454544</div>
+        </div>
+        <button>Back to home</button>
+      </div>
+      <script>
+        document.getElementById(
+          "eta"
+        ).innerText = ` 🕓 ETA: ${localStorage.getItem("eta")} mins`;
+        document.getElementById(
+          "orderId"
+        ).innerText = `Order ID: ${localStorage.getItem("order_id")}`;
+      </script>
+      <script
+        src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
+        type="module"
+      ></script>
+
+      <dotlottie-player
+        src="https://lottie.host/319b5e86-f144-4bc6-ae2d-46190ba3e005/XuLCFAeUf3.json"
+        background="transparent"
+        speed="1"
+        loop
+        autoplay
+      ></dotlottie-player>
+    </div>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap");
+      body {
+        font-family: "Montserrat", sans-serif;
+        margin: 0;
+      }
+      .message {
+        color: #3a3b3c;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: white;
+        z-index: 10;
+        position: fixed;
+        top: 0;
+        width: 64.3vw;
+        margin: auto;
+      }
+      h1 {
+        padding-top: 20px;
+        line-height: 0;
+      }
+      .order {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+      }
+      .relax {
+        text-align: center;
+        font-size: large;
+        margin-bottom: 10px;
+      }
+      button {
+        background-color: green;
+        color: white;
+        font-size: large;
+        padding: 8px 20px;
+        border: none;
+        width: 64.3vw;
+        margin-top: 10px;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 75vw;
+        height: 100vh;
+        overflow: hidden;
+        margin: auto;
+        animation: fadeIn 2s ease-in-out;
+      }
+      @keyframes fadeIn {
+        0%,
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+    </style>
+  </body>
+</html>

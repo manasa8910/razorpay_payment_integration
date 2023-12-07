@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Popeye's Pizza</title>
+    <script defer src="../public/scripts/checkout.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <link
+      href="../public/styles/checkout.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+  <body>
+    <!--Loading-->
+    <div id="loadingContainer">
+      <script
+        src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
+        type="module"
+      ></script>
+
+      <dotlottie-player
+        src="https://lottie.host/b27dd284-18be-4811-8f63-3c20d7620231/BfaNY6kmWE.json"
+        background="transparent"
+        speed="1"
+        style="width: 300px; height: 300px"
+        loop
+        autoplay
+      ></dotlottie-player>
+    </div>
+
+    <!--checkout page-->
+    <div id="checkoutContainer">
+      <h2>Order Summary</h2>
+      <div id="delivery"></div>
+      <div id="cartProductsContainer">
+        <div style="background-color: #e9e9e9" class="product">
+          <div class="product-image">Item</div>
+          <div class="product-name">Name</div>
+          <div class="product-qty">Qty</div>
+          <div class="product-price">Total</div>
+          <div></div>
+        </div>
+      </div>
+      <!--Total-->
+      <div class="product">
+        <div class="product-image">Total</div>
+        <div class="product-name"></div>
+        <div class="product-qty"></div>
+        <div id="total" class="product-price"></div>
+        <div></div>
+      </div>
+
+      <!--Pay -->
+      <form class="pay-form">
+        <input type="hidden" name="name" value="Popeyes Pizza" />
+        <input id="amount" type="hidden" name="amount" value="" />
+        <input
+          type="hidden"
+          name="description"
+          value="delicious pizza at your doorstep"
+        />
+        <input type="submit" value="Proceed to checkout" />
+        <div class="arrow">></div>
+      </form>
+    </div>
+  </body>
+</html>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".pay-form").submit(function (e) {
+      e.preventDefault();
+
+      var formData = $(this).serialize();
+
+      $.ajax({
+        url: "/createOrder",
+        type: "POST",
+        data: formData,
+        success: function (res) {
+          if (res.success) {
+            var options = {
+              key: "" + res.key_id + "",
+              amount: "" + res.amount + "",
+              currency: "INR",
+              name: "" + res.product_name + "",
+              description: "" + res.description + "",
+              image: "../public/assets/logo.png",
+              order_id: "" + res.order_id + "",
+              handler: function (response) {
+                localStorage.setItem("order_id", res.order_id);
+                window.location.href = "./success";
+              },
+              prefill: {
+                contact: "" + res.contact + "",
+                name: "" + res.name + "",
+                email: "" + res.email + "",
+              },
+              notes: {
+                description: "" + res.description + "",
+              },
+              theme: {
+                color: "#2300a3",
+              },
+            };
+            var razorpayObject = new Razorpay(options);
+            razorpayObject.on("payment.failed", function (response) {
+              alert("Payment Failed");
+            });
+            razorpayObject.open();
+          } else {
+            alert(res.msg);
+          }
+        },
+      });
+    });
+  });
+</script>
